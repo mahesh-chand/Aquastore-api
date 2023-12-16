@@ -1,4 +1,4 @@
-import User from '../echema/users.schema.js'
+import User from '../schema/users.schema.js'
 import bcrypt from 'bcrypt';
 
 //Signup
@@ -28,9 +28,9 @@ export const login= async (req,res)=>{
         if(!isAuth) return res.status(401).json({message: 'Incorrect password'})
 
         // User login
-        res.cookie("accessToken","1234",{httpOnly: true}) // 5 min
-        res.cookie("refreshToken","1234",{httpOnly: true}) // 7 days
-        res.status(200).json({success: true})
+        // res.cookie("accessToken","1234",{httpOnly: true}) // 5 min
+        // res.cookie("refreshToken","1234",{httpOnly: true}) // 7 days
+        // res.status(200).json({success: true})
     }
     catch(err)
     {
@@ -40,7 +40,7 @@ export const login= async (req,res)=>{
 
 //Fetch data from database
 export const fetch = async (req,res)=>{
-    const users = await User.find()
+    const users = await User.find().populate('cart')
     if(users.length) return res.status(200).json(users)
 
     res.status(404).json({message: 'User collection is empty'})
