@@ -1,9 +1,9 @@
 import express from 'express'
 const router = express.Router()
+import {fetch, remove, update} from '../controller/users.controller.js'
 
-/* GET users listing. */
-router.get('/', function(req, res,) {
-  res.send('respond with a resource');
-});
+router.get('/',fetch)
+router.put('/:id',update)
+router.delete('/:id',remove)
 
 export default router
